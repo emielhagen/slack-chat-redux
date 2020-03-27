@@ -1,0 +1,85 @@
+body {
+  font-family: Helvetica;
+}
+.app {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+}
+
+.message-list {
+  height: 89vh;
+  overflow: scroll;
+}
+
+.message {
+  margin: 10px 5px;
+}
+
+.message>small{
+  color: lightgray;
+}
+
+.message-form {
+  height: 50px;
+  width: 100%;
+  position: fixed;
+  bottom: 25px;
+  color: black;
+}
+
+.channel-list {
+  color: white;
+  text-align: right;
+  background: purple;
+  width: 30%;
+  border: 1px solid black;
+  padding: 5px;
+  a {
+    text-decoration: none;
+    color: white;
+    &:hover {
+      color: white;
+      text-decoration: none;
+    }
+  }
+}
+
+.channel {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.channel-title {
+  padding: 10px 0px;
+  border-bottom: 1px solid;
+  text-align: center;
+}
+
+.channel-content {
+  width: 70%;
+  border: 1px solid black;
+  padding: 5px;
+  height: 95vh;
+}
+
+.selected {
+  font-weight: bold;
+  transition: transform .2s ease-in-out;
+  transform: scale(1.01);
+}
+
+.input-box {
+  width: 50%;
+  height: 40px;
+  border-radius: 5px;
+}
+
+.submit-button {
+  height: 40px;
+  font-weight: bold;
+  color: white;
+  width: 100px;
+  background-color: red;
+  border-radius: 5px;
+}
