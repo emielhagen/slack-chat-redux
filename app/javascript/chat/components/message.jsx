@@ -19,7 +19,7 @@ class Message extends Component {
     const time = new Date(created_at).toLocaleTimeString();
     return(
       <div className="message">
-        <strong style={{color: strToRGB(user.email)}}>{user.email}</strong><small> - {time}</small><br/>
+        <strong style={{color: strToRGB(user.nickname)}}>{user.nickname}</strong><small> - {time}</small><br/>
         <p>{emojify(content)}</p>
       </div>
     )
