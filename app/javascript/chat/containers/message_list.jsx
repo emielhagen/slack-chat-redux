@@ -3,13 +3,26 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Message from '../components/message';
 import MessageForm from './message_form'
-import { fetchMessages } from '../actions';
+import { fetchMessages, appendMessage } from '../actions';
 
 
 class MessageList extends Component {
   componentDidMount() {
     this.fetchMessages(this.props.selectedChannel);
-    this.refresher = setInterval(this.fetchMessages, 3000);
+    this.subscribeActionCable(this.props);
+  }
+
+  subscribeActionCable = (props) => {
+    App[`channel_${props.selectedChannel}`] = App.cable.subscriptions.create(
+      { channel: 'ChatChannel', name: props.selectedChannel },
+      {
+        received: (message) => {
+          if (message.channel === props.selectedChannel) {
+            props.appendMessage(message);
+          }
+        }
+      }
+    );
   }
 
   componentWillUnmount() {
@@ -18,6 +31,7 @@ class MessageList extends Component {
 
   componentDidUpdate() {
     this.list.scrollTop = this.list.scrollHeight;
+    this.subscribeActionCable(this.props);
   }
 
   fetchMessages = () => {
@@ -46,7 +60,7 @@ function mapReduxStateToProps(reduxState) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchMessages }, dispatch);
+  return bindActionCreators({ fetchMessages, appendMessage }, dispatch);
 }
 
 export default connect(mapReduxStateToProps, mapDispatchToProps)(MessageList);

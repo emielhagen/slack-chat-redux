@@ -31,3 +31,10 @@ export function submitMessage(content, channel) {
     payload: promise
   }
 }
+
+export function appendMessage(message) {
+  return {
+    type: MESSAGE_POSTED,
+    payload: message
+  }
+}

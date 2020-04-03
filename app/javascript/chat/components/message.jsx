@@ -18,11 +18,11 @@ function strToRGB(str) {
 
 class Message extends Component {
   render() {
-    const { user, content, created_at } = this.props.message;
+    const { nickname, content, created_at } = this.props.message;
     const time = new Date(created_at).toLocaleTimeString();
     return(
       <div className="message">
-        <strong style={{color: strToRGB(user.nickname)}}>{user.nickname}</strong><small> - {time}</small><br/>
+        <strong style={{color: strToRGB(nickname)}}>{nickname}</strong><small> - {time}</small><br/>
         <p>{emojify(content)}</p>
       </div>
     )

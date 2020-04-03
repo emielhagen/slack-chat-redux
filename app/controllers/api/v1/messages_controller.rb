@@ -2,14 +2,15 @@ class Api::V1::MessagesController < ApplicationController
   before_action :retrieve_channel
 
   def index
-    messages = @channel.messages
-    render json: messages.to_json(include: :user)
+    messages = @channel.messages.order('created_at ASC')
+    render json: messages # see Message.as_json method
   end
 
   def create
-    message = Message.create(user: current_user, channel: @channel, content: params.dig('message', 'content'))
-    nickname = message.user.nickname ? message.user.nickname : message.user.email
-    render json: { content: message.content, created_at: message.created_at, user: { nickname: nickname }}
+    message = @channel.messages.build(content: params[:content])
+    message.user = current_user
+    message.save
+    render json: message # see Message.as_json method
   end
 
   private
